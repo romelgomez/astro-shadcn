@@ -1,47 +1,74 @@
-# Astro Starter Kit: Minimal
+# Astro Shadcn
 
-```sh
-npm create astro@latest -- --template minimal
+ref: https://ui.shadcn.com/docs/installation/astro
+
+
+## 0) add some Adapters to server-side rendering (SSR)
+
+`pnpm astro add vercel`
+
+ref: [Adapters](https://docs.astro.build/en/guides/server-side-rendering/#official-adapters)
+
+
+## 1) Dependencies
+
+- pnpm create astro@latest `Astro Starter Kit: Minimal`
+- pnpm dlx astro add react
+- pnpm dlx astro add tailwind
+
+
+## 2) Create a styles/globals.css file in the src folder.
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## 3) src/pages/index.astro
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```astro
+---
+import '@/styles/globals.css'
+---
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 4) astro.config.mjs
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```js
+export default defineConfig({
+  integrations: [
+    tailwind({
+      applyBaseStyles: false,
+    }),
+  ],
+})
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 5) tsconfig.json
 
-## 🧞 Commands
+```json
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
+```
 
-All commands are run from the root of the project, from a terminal:
+## 6) Run the shadcn init command to setup your project:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+`pnpm dlx shadcn@latest init`
 
-## 👀 Want to learn more?
+## 7) You can now start adding components to your project.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+`pnpm dlx shadcn@latest add button`
+
